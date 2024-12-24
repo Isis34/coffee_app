@@ -3,7 +3,7 @@
   export let message: string;
 </script>
 
-<div class="error-message" in:blur="{{ duration: 1000 }}" out:fade>
+<div class="error-message" in:blur="{{ duration: 1000 }}" out:fade="{{ duration: 1000 }}">
   <span>{message}</span>
 </div>
 

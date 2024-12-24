@@ -1,39 +1,34 @@
-import {writable} from 'svelte/store';
-import {loadCard} from './cardsStore';
+import { loadCard } from './cardsStore';
+import { writable } from 'svelte/store';
 
-export const createAutoLoader = (loadCallback: () => void, interval: number = 3000) => {
-    let timer: NodeJS.Timeout | null = null;
+export const isTimerSet = writable<boolean>(false);
 
-    const {set} = writable(false);
+export const createAutoLoader = (loadCallback: () => void, seconds: number = 30) => {
+  let timer: number | null = null;
 
-    const start = (): void => {
-        if (timer) {
-            return;
-        }
-        try {
-            timer = setInterval(async () => {
-                await loadCallback();
-            }, interval);
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-        set(true);
-    };
+  const start = (): void => {
+    if (timer) {
+      return;
+    }
+    timer = window.setInterval(() => {
+      loadCallback();
+    }, seconds * 1000);
+    isTimerSet.set(true);
+  };
 
-    const stop = (): void => {
-        if (!timer) {
-            return;
-        }
-        clearInterval(timer);
-        timer = null;
-        set(false);
-    };
+  const stop = (): void => {
+    if (!timer) {
+      return;
+    }
+    clearInterval(timer);
+    isTimerSet.set(false);
+    timer = null;
+  };
 
-    return {
-        start,
-        stop,
-    };
+  return {
+    start,
+    stop,
+  };
 };
 
-export const autoLoaderStore = createAutoLoader(loadCard);
+export const autoLoader = createAutoLoader(loadCard);

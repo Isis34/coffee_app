@@ -29,11 +29,7 @@
 
 <div class="image-container">
   {#if imageLoaded}
-    <img
-      class="loaded"
-      src="{imageUrl}"
-      alt="Coffee image blend: {blend_name}, origin: {origin}"
-    />
+    <img class="loaded" src="{imageUrl}" alt="Coffee image blend: {blend_name}, origin: {origin}" />
   {:else if imageError}
     <div class="error">Can't load the image</div>
   {:else}

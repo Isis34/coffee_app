@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { fade, fly } from 'svelte/transition';
-
   export let isLoading: boolean;
   export let onClick: () => void;
 </script>
 
-<button class="load-more" disabled="{isLoading ? 'disabled' : ''}" on:click="{onClick}" out:fade>
+<button class="load-more" disabled="{isLoading}" on:click="{onClick}">
   {#if isLoading}
     Loading...
   {:else}

@@ -4,15 +4,11 @@
 
   export let cards: Array<CoffeeCard>;
   export let imageUrl: string;
-
-  let i = 0;
 </script>
 
 <div class="card-collection">
   {#each cards as card}
-    <div>
-      <Card coffeeCard="{card}" {imageUrl} />
-    </div>
+    <Card coffeeCard="{card}" {imageUrl} />
   {/each}
 </div>
 
